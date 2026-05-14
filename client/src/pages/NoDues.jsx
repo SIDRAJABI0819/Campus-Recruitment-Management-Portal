@@ -87,10 +87,12 @@ const NoDues = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50">
-            <Navbar />
+        <div className="min-h-screen flex flex-col bg-slate-50 print:bg-white">
+            <div className="print:hidden">
+                <Navbar />
+            </div>
             
-            <div className="flex-grow flex items-center justify-center p-4 py-12">
+            <div className="flex-grow flex items-center justify-center p-4 py-12 print:p-0 print:block">
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -136,28 +138,32 @@ const NoDues = () => {
                                     </div>
 
                                     {/* Certificate Preview (Screen + Print) */}
-                                    <div className="relative w-full max-w-[800px] aspect-[1/1.414] shadow-2xl border border-gray-200 bg-white print:shadow-none print:border-none print:w-[100vw] print:max-w-none print:h-[100vh] print:-m-8 mx-auto overflow-hidden rounded-xl print:rounded-none">
-                                        {/* Background Image */}
-                                        <img src={assets.no_dues} alt="No Dues Certificate" className="absolute top-0 left-0 w-full h-full object-contain print:object-cover z-0" />
+                                    <div className="w-full max-w-[800px] shadow-2xl border border-gray-200 bg-white print:shadow-none print:border-none print:w-[100vw] print:max-w-none mx-auto overflow-hidden rounded-xl print:rounded-none">
                                         
-                                        {/* Overlaid Data - positioned to match the blank lines on the certificate */}
-                                        {/* We use inline styles for precise percentages */}
-                                        <div className="absolute z-10 w-full h-full top-0 left-0 text-[1.1rem] font-semibold text-gray-800 pointer-events-none uppercase tracking-wide print:text-[14px]">
-                                            {/* Batch / Year */}
-                                            <div className="absolute top-[14.5%] left-[54%]">{existingRequest.year}</div>
+                                        {/* Placement info block at the top */}
+                                        <div className="w-full text-center py-5 bg-white border-b border-gray-100 print:py-3 print:border-none">
+                                            <span className="text-sm text-indigo-800 bg-indigo-50 px-4 py-2 rounded-lg border border-indigo-100 font-semibold uppercase tracking-wide">
+                                                {existingRequest.type === 'Higher Studies' ? 'Higher Studies: ' : 'Placement: '}
+                                                {existingRequest.company} ({existingRequest.package || existingRequest.type})
+                                            </span>
+                                        </div>
+
+                                        {/* Image and Overlays */}
+                                        <div className="relative w-full">
+                                            <img src={assets.No_Dues} alt="No Dues Certificate" className="w-full h-auto block z-0" />
                                             
-                                            {/* Name */}
-                                            <div className="absolute top-[18.2%] left-[26%]">{existingRequest.name}</div>
-                                            
-                                            {/* Roll No */}
-                                            <div className="absolute top-[18.2%] left-[64%]">{existingRequest.rollNumber}</div>
-                                            
-                                            {/* Branch */}
-                                            <div className="absolute top-[33.2%] left-[26%]">{existingRequest.branch}</div>
-                                            
-                                            {/* Company & Package (As extra info at the top right since it's a placement clearance) */}
-                                            <div className="absolute top-[2%] right-[5%] text-sm text-indigo-800 bg-white/80 px-3 py-1 rounded border border-indigo-100">
-                                                Placement: {existingRequest.company} ({existingRequest.package || existingRequest.type})
+                                            {/* Overlaid Data */}
+                                            <div className="absolute z-10 w-full h-full top-0 left-0 text-[1.1rem] font-semibold text-gray-800 pointer-events-none uppercase tracking-wide print:text-[14px]">
+                                                {/* S.No 2: Submitted the record of placement / Higher Study */}
+                                                {/* 'Yes' under the Yes/No column */}
+                                                <div className="absolute top-[44.7%] left-[41.5%] text-gray-900 font-bold capitalize">
+                                                    Yes
+                                                </div>
+                                                
+                                                {/* 'Deepanshu' under the Signature column */}
+                                                <div className="absolute top-[44.7%] left-[71.5%] text-blue-800 text-lg" style={{ fontFamily: 'cursive' }}>
+                                                    Deepanshu
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +261,9 @@ const NoDues = () => {
                     )}
                 </motion.div>
             </div>
-            <Footer />
+            <div className="print:hidden">
+                <Footer />
+            </div>
         </div>
     )
 }

@@ -40,9 +40,11 @@ import adobe_logo from './adobe_logo.png'
 import amazon_logo from './amazon_logo.png'
 import user_img from './user_img.svg'
 import no_dues from './no_dues.jpg'
+import No_Dues from './No_Dues.png'
 
 export const assets = {
     logo,
+    No_Dues,
     iet_logo,
     no_dues,
     iet_logo_2,
